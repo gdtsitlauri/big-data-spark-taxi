@@ -65,6 +65,8 @@ Spark & Hadoop Taxi Trips Analysis
 └── q5_df_parquet.py             # Q5 – DataFrame API (Parquet)
 
 └── q6_df.py                     # Q6 – DataFrame API + scaling tests
+│
+├── report.pdf
 ```
 
 ---
