@@ -1,53 +1,53 @@
+
 Spark & Hadoop Taxi Trips Analysis
 ---
 
-## 📑 Περιεχόμενα
+## 📑 Contents
 
-1. Εισαγωγή
-2. Απαιτήσεις & Περιβάλλον
-3. Δομή Αρχείων
-4. Οδηγίες Εκτέλεσης
-
-   * Μετατροπή CSV → Parquet
+1. Introduction
+2. Requirements & Environment
+3. File Structure
+4. Execution Instructions
+   * CSV → Parquet Conversion
    * Query Q1: RDD / DataFrame
    * Query Q2: RDD / DataFrame
    * Query Q3: DataFrame & SQL (CSV vs Parquet)
    * Query Q4: SQL (CSV vs Parquet)
    * Query Q5: DataFrame (CSV vs Parquet)
    * Query Q6: DataFrame + Scaling
-   * Part 1B: Μελέτη Optimizer Join
-5. Παρατηρήσεις & Σύγκριση Επιδόσεων
+   * Part 1B: Optimizer Join Study
+5. Observations & Performance Comparison
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Ανάλυση πραγματικών δεδομένων NYC TLC taxi trips με **Apache Spark** πάνω σε **HDFS**.  
-Υλοποιούνται ερωτήματα Q1–Q6 με RDD, DataFrame, SQL APIs και CSV vs Parquet formats, καθώς και μελέτη της στρατηγικής join του Catalyst optimizer.
+Analysis of real NYC TLC taxi trips data using **Apache Spark** on **HDFS**.  
+Queries Q1–Q6 are implemented with RDD, DataFrame, SQL APIs and CSV vs Parquet formats, as well as a study of the join strategy of the Catalyst optimizer.
 
 ---
 
-## Απαιτήσεις & Περιβάλλον
+## Requirements & Environment
 
 * Apache Hadoop ≥ 3.3
 * Apache Spark ≥ 3.5
 * Python 3.8+
-* Kubernetes cluster & HDFS πρόσβαση
-* Spark submit από Docker image `apache/spark`
-* Ρυθμίσεις σε `spark-defaults.conf` (namespace, serviceAccount κ.λπ.)
+* Kubernetes cluster & HDFS access
+* Spark submit from Docker image `apache/spark`
+* Settings in `spark-defaults.conf` (namespace, serviceAccount, etc.)
 
 ---
 
-## Δομή Αρχείων
+## File Structure
 
 ```
 .
-├── csv_to_parquet.py            # Μετατροπή όλων των CSV σε Parquet
-├── 1b.py                        # Part 1Β: explain – μελέτη join optimizer
+├── csv_to_parquet.py            # Converts all CSV files to Parquet
+├── 1b.py                        # Part 1B: explain – join optimizer study
 │
 ├── q1_rdd.py                    # Q1 – RDD API
-├── q1_df.py                     # Q1 – DataFrame API (χωρίς UDF)
-├── q1_df_udf.py                 # Q1 – DataFrame API (με UDF)
+├── q1_df.py                     # Q1 – DataFrame API (no UDF)
+├── q1_df_udf.py                 # Q1 – DataFrame API (with UDF)
 │
 ├── q2_rdd.py                    # Q2 – RDD API
 ├── q2_df.py                     # Q2 – DataFrame API
@@ -71,11 +71,11 @@ Spark & Hadoop Taxi Trips Analysis
 
 ---
 
-## Οδηγίες Εκτέλεσης
+## Execution Instructions
 
-Αντικαταστήστε `<username>` στον HDFS path με το δικό σας όνομα χρήστη.
+Replace `<username>` in the HDFS path with your own username.
 
-### Μετατροπή CSV → Parquet
+### CSV → Parquet Conversion
 
 ```bash
 spark-submit \
@@ -93,12 +93,12 @@ spark-submit \
    ```bash
    spark-submit … q1_rdd.py
    ```
-2. **DataFrame API (χωρίς UDF)**
+2. **DataFrame API (no UDF)**
 
    ```bash
    spark-submit … q1_df.py
    ```
-3. **DataFrame API (με UDF)**
+3. **DataFrame API (with UDF)**
 
    ```bash
    spark-submit … q1_df_udf.py
@@ -197,18 +197,18 @@ spark-submit \
 
 ---
 
-### Part 1B: Μελέτη Optimizer Join
+### Part 1B: Optimizer Join Study
 
 ```bash
 spark-submit … 1b.py
 ```
 
-Στο script καλείται `spark.sql("EXPLAIN …")` για 50 εγγραφές και μετά μετράται χρόνος και είδος join (Broadcast vs Shuffle).
+In the script, `spark.sql("EXPLAIN …")` is called for 50 records and then time and join type (Broadcast vs Shuffle) are measured.
 
 ---
 
-## License & Αναφορές
+## License & References
 
-* Δεδομένα: NYC TLC Trip Record Data
+* Data: NYC TLC Trip Record Data
 * Apache Spark & Hadoop documentation
 * Parquet format: [https://parquet.apache.org/](https://parquet.apache.org/)
