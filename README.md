@@ -51,15 +51,16 @@ large enough not to depend on them.
 
 ```
 big-data-spark-taxi/
-  csv_to_parquet.py         converts the CSV trip and zone files on HDFS to Parquet
-  q1_rdd.py, q1_df.py, q1_df_udf.py
-  q2_rdd.py, q2_df.py, q2_sql.py
-  q3_df_csv.py, q3_df_parquet.py, q3_sql_csv.py, q3_sql_parquet.py
-  q4_sql_csv.py, q4_sql_parquet.py
-  q5_df_csv.py, q5_df_parquet.py
-  q6_df.py                  Q6; the executor layout is set with spark-submit
-  1b.py                     join-strategy study
-  report.pdf                the full report (in Greek)
+  csv_to_parquet.py           converts the CSV trip and zone files on HDFS to Parquet (run first)
+  queries/
+    q1_rdd.py, q1_df.py, q1_df_udf.py
+    q2_rdd.py, q2_df.py, q2_sql.py
+    q3_df_csv.py, q3_df_parquet.py, q3_sql_csv.py, q3_sql_parquet.py
+    q4_sql_csv.py, q4_sql_parquet.py
+    q5_df_csv.py, q5_df_parquet.py
+    q6_df.py                  Q6; the executor layout is set with spark-submit
+    join_strategy.py          1B: the join strategy chosen by Catalyst
+  report.pdf                  the full report (in Greek)
 ```
 
 ## Running
@@ -70,15 +71,15 @@ yours.
 
 ```bash
 spark-submit --master k8s://<api-server> --deploy-mode cluster csv_to_parquet.py
-spark-submit --master k8s://<api-server> --deploy-mode cluster q3_df_parquet.py
+spark-submit --master k8s://<api-server> --deploy-mode cluster queries/q3_df_parquet.py
 
 # Q6 with 8 executors of 1 core and 2 GB
 spark-submit --master k8s://<api-server> --deploy-mode cluster \
-  --conf spark.executor.instances=8 --conf spark.executor.cores=1 --conf spark.executor.memory=2g q6_df.py
+  --conf spark.executor.instances=8 --conf spark.executor.cores=1 --conf spark.executor.memory=2g queries/q6_df.py
 ```
 
 Data: [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page).
 
 ## Authors
 
-Nikiforos Planakis and George David Tsitlauri, University of Thessaly.
+George David Tsitlauri and Nikiforos Planakis, University of Thessaly.
