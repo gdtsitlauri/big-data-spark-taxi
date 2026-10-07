@@ -43,9 +43,11 @@ Times are the stage times from the Spark logs, as given in `report.pdf`.
    under the 10 MB `spark.sql.autoBroadcastJoinThreshold`), the optimizer chose a broadcast hash join,
    which avoids shuffling the large trip table.
 
-The report gives one time per version, measured on a shared course cluster, so differences of a few
-seconds should not be read too closely; the effects of the file format and of the executor layout are
-large enough not to depend on them.
+## Limitations (reported as such)
+
+- The report gives one time per version, measured on a shared course cluster, so differences of a few
+  seconds should not be read too closely; the effects of the file format and of the executor layout are
+  large enough not to depend on them.
 
 ## Folder map
 
@@ -80,6 +82,6 @@ spark-submit --master k8s://<api-server> --deploy-mode cluster \
 
 Data: [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page).
 
-## Authors
+## Authors and license
 
-George David Tsitlauri and Nikiforos Planakis, University of Thessaly.
+George David Tsitlauri and Nikiforos Planakis, University of Thessaly. MIT license ([LICENSE](LICENSE)).
