@@ -6,7 +6,7 @@ Six queries over the New York City yellow-taxi trip records (TLC, 2015 and 2024)
 on a Kubernetes cluster with HDFS storage. Each query is written with more than one Spark API (RDD,
 DataFrame, Spark SQL) or input format (CSV, Parquet), and the execution times are compared. A seventh
 experiment looks at how Spark's Catalyst optimizer chooses a join strategy. A team project for a course
-at the University of Thessaly; `report.pdf` (in Greek) has the full analysis.
+at the University of Thessaly.
 
 | query | what it computes | compared |
 | --- | --- | --- |
@@ -20,7 +20,9 @@ at the University of Thessaly; `report.pdf` (in Greek) has the full analysis.
 
 ## Main results
 
-Times are the stage times from the Spark logs, as given in `report.pdf`.
+Times are from the Spark logs: the shuffle-map stage plus the result stage of each job, one run per
+version. Every time, with both stages, is in [`results/results.md`](results/results.md) and
+[`results/results.csv`](results/results.csv).
 
 1. **Parquet is 7.5 to 19 times faster than CSV.** Reading the columnar Parquet files instead of CSV cut every
    query that was run both ways:
@@ -36,8 +38,8 @@ Times are the stage times from the Spark logs, as given in `report.pdf`.
    321.1 s. In Q3 the DataFrame and SQL versions were close on Parquet (10.6 s and 12.1 s), while on CSV SQL
    was faster (158.4 s against 202.1 s). In Q1 the logged stages of the RDD version took 0.7 s against
    64.1 s (DataFrame with a UDF) and 90.1 s (DataFrame).
-3. **More, smaller executors were faster.** With the same total of 8 cores and 16 GB, Q6 took 28.1 s on
-   2 executors (4 cores, 8 GB each), 20.2 s on 4 and 15.2 s on 8 executors (1 core, 2 GB each), 1.85 times
+3. **More, smaller executors were faster.** With the same total of 8 cores and 16 GB, Q6 took 29.1 s on
+   2 executors (4 cores, 8 GB each), 22.2 s on 4 and 15.6 s on 8 executors (1 core, 2 GB each), 1.87 times
    faster.
 4. **Catalyst broadcasts the small table.** For the join of the trips with the zone table (about 4 MiB,
    under the 10 MB `spark.sql.autoBroadcastJoinThreshold`), the optimizer chose a broadcast hash join,
@@ -45,7 +47,7 @@ Times are the stage times from the Spark logs, as given in `report.pdf`.
 
 ## Limitations (reported as such)
 
-- The report gives one time per version, measured on a shared course cluster, so differences of a few
+- One time per version, measured on a shared course cluster, so differences of a few
   seconds should not be read too closely; the effects of the file format and of the executor layout are
   large enough not to depend on them.
 
@@ -62,7 +64,7 @@ big-data-spark-taxi/
     q5_df_csv.py, q5_df_parquet.py
     q6_df.py                  Q6; the executor layout is set with spark-submit
     join_strategy.py          1B: the join strategy chosen by Catalyst
-  report.pdf                  the full report (in Greek)
+  results/                    results.md (every time, with its stages), results.csv
 ```
 
 ## Running

@@ -1,0 +1,19 @@
+query,implementation,input,executors,shuffle_stage_s,result_stage_s,total_s
+Q1,RDD,CSV (2015 trips),default,0.335,0.347,0.682
+Q1,DataFrame,CSV (2015 trips),default,89.766,0.336,90.102
+Q1,DataFrame with UDF,CSV (2015 trips),default,63.731,0.368,64.099
+Q2,RDD,CSV (2015 trips),default,320.317,0.750,321.127
+Q2,DataFrame,CSV (2015 trips),default,70.406,0.882,71.288
+Q2,SQL,CSV (2015 trips),default,113.280,0.686,113.966
+Q3,DataFrame,CSV (2024 trips),default,201.303,0.793,202.096
+Q3,DataFrame,Parquet (2024 trips),default,10.273,0.359,10.632
+Q3,SQL,CSV (2024 trips),default,156.786,1.632,158.418
+Q3,SQL,Parquet (2024 trips),default,11.843,0.269,12.112
+Q4,SQL,CSV (2024 trips),default,193.963,0.370,194.333
+Q4,SQL,Parquet (2024 trips),default,25.373,0.658,26.031
+Q5,DataFrame,CSV (2024 trips),default,190.040,1.551,191.591
+Q5,DataFrame,Parquet (2024 trips),default,16.784,0.852,17.636
+Q6,DataFrame,Parquet (2024 trips) + CSV zones,2 x (4 cores / 8 GB),28.145,0.976,29.121
+Q6,DataFrame,Parquet (2024 trips) + CSV zones,4 x (2 cores / 4 GB),20.177,1.993,22.170
+Q6,DataFrame,Parquet (2024 trips) + CSV zones,8 x (1 core / 2 GB),15.231,0.321,15.552
+1B,join (broadcast hash join),Parquet (2024 trips and zones),default,9.391,0.317,9.708
