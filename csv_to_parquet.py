@@ -63,7 +63,7 @@ if __name__ == "__main__":
         StructField("total_amount", DoubleType(), True),
         StructField("congestion_surcharge", DoubleType(), True),
         StructField("Airport_fee", DoubleType(), True),
-        # Ίσως υπάρχει και cbd_congestion_fee
+        # cbd_congestion_fee may also be present
         StructField("cbd_congestion_fee", DoubleType(), True),
     ])
 
