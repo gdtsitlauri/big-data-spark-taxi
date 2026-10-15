@@ -86,4 +86,4 @@ Data: [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-rec
 
 ## Authors and license
 
-George David Tsitlauri and Nikiforos Planakis, Department of Informatics and Telecommunications, University of Thessaly. MIT license ([LICENSE](LICENSE)).
+George David Tsitlauri and Nikiforos Planakis, Department of Informatics and Telecommunications, University of Thessaly, Lamia, Greece. MIT license ([LICENSE](LICENSE)).
